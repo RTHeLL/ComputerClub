@@ -4,7 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-flask = "*"
+Flask = "*"
+Flask-SQLAlchemy = "*"
+psycopg2-binary = "*"
+postgres = "*"
+flask-migrate = "*"
+flask-wtf = "*"
 
 [dev-packages]
 
