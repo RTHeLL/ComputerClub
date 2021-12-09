@@ -8,8 +8,9 @@ Flask = "*"
 Flask-SQLAlchemy = "*"
 psycopg2-binary = "*"
 postgres = "*"
-flask-migrate = "*"
-flask-wtf = "*"
+Flask-Migrate = "*"
+Flask-WTF = "*"
+Flask-Bootstrap = "*"
 
 [dev-packages]
 
