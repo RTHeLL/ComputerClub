@@ -4,4 +4,18 @@
 
 {% block content %}
     <h1>Welcome to Computer Club!</h1>
+
+    {% for news in _news %}
+    <div class="card text-center">
+        <div class="card-body">
+            <h5 class="card-title">{{ news.title }}</h5>
+            <p class="card-text">{{ news.description }}</p>
+            <a href="#" class="btn btn-primary">More</a>
+        </div>
+        <div class="card-footer text-muted">
+            <small class="text-muted">{{  news.create_date.strftime("%d %B, %Y, %H:%M") }}</small>
+        </div>
+    </div>
+    <br>
+    {% endfor %}
 {% endblock %}

@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
+{% block title %}ComputerClub - Registration{% endblock %}
+
 {% block content %}
     <h1>Sign Up</h1>
     <form class="row g-3" action="" method="POST" novalidate>
         {{ form.hidden_tag() }}
 
-        <div class="col-md-6">
+        <div class="col-md-12">
             {{ form.username.label(for="inputUsername", class="form-label") }}
             <br>
             {{ form.username(type="text", class="form-control", size=32) }}
@@ -17,6 +19,13 @@
             {{ form.password.label(for="inputPassword", class="form-label") }}<br>
             {{ form.password(type="password", class="form-control", size=32) }}
             {% for error in form.password.errors %}
+                <span class="badge bg-danger">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="col-md-6">
+            {{ form.password_repeat.label(for="inputRepeatPassword", class="form-label") }}<br>
+            {{ form.password_repeat(type="password", class="form-control", size=32) }}
+            {% for error in form.password_repeat.errors %}
                 <span class="badge bg-danger">{{ error }}</span>
             {% endfor %}
         </div>

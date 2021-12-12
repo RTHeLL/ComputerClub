@@ -3,6 +3,7 @@ from flask_login import current_user, login_user, logout_user
 
 from werkzeug.urls import url_parse
 
+from ComputerClub import db
 from ComputerClub.models import User
 
 from blueprints.ucp import bp
@@ -38,10 +39,19 @@ def logout_handler():
 # Register page
 @bp.route('/register', methods=['POST', 'GET'])
 def register_handler():
+    if current_user.is_authenticated:
+        return redirect(url_for('main'))
     form = RegisterForm()
     if form.validate_on_submit():
+        _user = User(username=form.username.data,
+                     email=form.email.data,
+                     first_name=form.first_name.data,
+                     last_name=form.last_name.data)
+        _user.generate_password(form.password.data)
+        db.session.add(_user)
+        db.session.commit()
         flash(f'{form.username.data} successes created!')
-        return redirect(url_for('main'))
+        return redirect(url_for('ucp.login_handler'))
     return render_template('ucp/register.html', title='Sign Up', form=form)
 
 
