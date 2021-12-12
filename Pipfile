@@ -11,6 +11,7 @@ postgres = "*"
 Flask-Migrate = "*"
 Flask-WTF = "*"
 Flask-Bootstrap = "*"
+flask-login = "*"
 
 [dev-packages]
 

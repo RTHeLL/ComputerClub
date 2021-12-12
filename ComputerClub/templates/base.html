@@ -3,12 +3,11 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}{% endblock %}</title>
-        <link href="{{ url_for('static', filename='css/bootstrap/bootstrap.css')}}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
         <link href="{{ url_for('static', filename='css/header.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', filename='css/footer.css') }}" rel="stylesheet">
     </head>
     <body>
-
          <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
             <symbol id="pc-display" viewBox="0 0 16 16">
                 <title>ComputerClub</title>
@@ -42,12 +41,18 @@
             <symbol id="grid" viewBox="0 0 16 16">
                 <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5v-3zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5v-3zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5h-3z"></path>
             </symbol>
-            <symbol id="login" viewBox="0 0 16 16">
-                <path fill-rule="evenodd"
-                  d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"></path>
-                <path fill-rule="evenodd"
-                      d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"></path>
-            </symbol>
+             <symbol id="login" viewBox="0 0 16 16">
+                 <path fill-rule="evenodd"
+                       d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"></path>
+                 <path fill-rule="evenodd"
+                       d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"></path>
+             </symbol>
+             <symbol id="logout" viewBox="0 0 16 16">
+                 <path fill-rule="evenodd"
+                       d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z"></path>
+                 <path fill-rule="evenodd"
+                       d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"></path>
+             </symbol>
         </svg>
 
         <header>
@@ -95,43 +100,35 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link text-white">
-                                    <svg class="bi d-block mx-auto mb-1" width="24" height="24">
-                                        <use xlink:href="#people-circle"></use>
-                                    </svg>
-                                    Customers
-                                </a>
-                            </li>
-                            <li>
+                                {% if current_user.is_anonymous %}
                                 <a href="{{ url_for('ucp.login_handler') }}" class="nav-link text-white">
                                     <svg class="bi d-block mx-auto mb-1" width="24" height="24">
                                         <use xlink:href="#login"></use>
                                     </svg>
                                     Login
                                 </a>
+                                {% endif %}
                             </li>
                         </ul>
 
-{#                       IS LOGGED!!! #}
-{#                        <div class="dropdown text-end">#}
-{#                            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle"#}
-{#                               id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">#}
-{#                                <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32"#}
-{#                                     class="rounded-circle">#}
-{#                            </a>#}
-{#                            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">#}
-{#                                <li><a class="dropdown-item" href="#">Button 1</a></li>#}
-{#                                <li><a class="dropdown-item" href="#">Button 2</a></li>#}
-{#                                <li><a class="dropdown-item" href="#">Button 3</a></li>#}
-{#                                <li>#}
-{#                                    <hr class="dropdown-divider">#}
-{#                                </li>#}
-{#                                <li><a class="dropdowncolor-item" href="#">Sign out</a></li>#}
-{#                            </ul>#}
-{#                        </div>#}
-{#                       IS LOGGED!!!#}
-
-
+                        {% if current_user.is_active %}
+                            <div class="dropdown text-end">
+                                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle"
+                                   id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="{{ url_for('static', filename='img/no-avatar.png') }}" alt="mdo" width="38" height="38"
+                                         class="rounded-circle">
+                                </a>
+                                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                                    <li><a class="dropdown-item" href="#">Button 1</a></li>
+                                    <li><a class="dropdown-item" href="#">Button 2</a></li>
+                                    <li><a class="dropdown-item" href="#">Button 3</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="{{ url_for('ucp.logout_handler') }}">Sign out</a></li>
+                                </ul>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -139,6 +136,21 @@
         </header>
 
          <div class="container">
+{#           todo finaly flash messages #}
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+{#                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">#}
+{#                        <span aria-hidden="true">&times;</span>#}
+{#                    </button>#}
+                </div>
+
+
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
             {% block content %}
 
             {% endblock %}

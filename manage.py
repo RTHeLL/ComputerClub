@@ -1,1 +1,0 @@
-from ComputerClub import app

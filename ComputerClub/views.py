@@ -2,11 +2,14 @@ from flask import render_template
 
 from ComputerClub import app
 
+# from models import News
 
-# Main page
+
+# Index page
 @app.route('/')
 def main():
-    return render_template('index.html')
+    # _news = News.query.all()
+    return render_template('index.html', title='test')
 
 
 # @app.route('/login')

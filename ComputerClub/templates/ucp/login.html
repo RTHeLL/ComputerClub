@@ -9,10 +9,16 @@
             {{ form.username.label(for="exampleInputEmail1", class="form-label") }}
             <br>
             {{ form.username(type="text", class="form-control", size=32) }}
+            {% for error in form.username.errors %}
+                <span class="badge bg-danger">{{ error }}</span>
+            {% endfor %}
         </div>
         <div class="mb-3">
             {{ form.password.label(for="exampleInputPassword1", class="form-label") }}<br>
             {{ form.password(type="password", class="form-control", size=32) }}
+            {% for error in form.password.errors %}
+                <span class="badge bg-danger">{{ error }}</span>
+            {% endfor %}
         </div>
         <div class="mb-3 form-check">
             {{ form.remember(type="checkbox", class="form-check-input") }} {{ form.remember.label(class="form-check-label", for="exampleCheck1") }}

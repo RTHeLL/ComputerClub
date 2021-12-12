@@ -14,4 +14,11 @@ class RegisterForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     email = EmailField('E-mail', validators=[DataRequired()])
+    first_name = StringField('First name', validators=[DataRequired()])
+    last_name = StringField('Last name', validators=[DataRequired()])
     submit = SubmitField('Sign Up')
+
+
+# todo create RecoveryForm
+class RecoveryForm(FlaskForm):
+    pass
