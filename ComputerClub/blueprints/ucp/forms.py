@@ -2,7 +2,9 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, EmailField
 from wtforms.validators import DataRequired, ValidationError, EqualTo
 
-from ComputerClub.models import User
+from database.controller import UsersRepository
+
+users_repository = UsersRepository()
 
 
 class LoginForm(FlaskForm):
@@ -21,14 +23,14 @@ class RegisterForm(FlaskForm):
     last_name = StringField('Last name', validators=[DataRequired()])
     submit = SubmitField('Sign Up')
 
-    def validate_username(self, _username):
-        _user = User.query.filter_by(username=_username.data).first()
-        if _user is not None:
+    def validate_username(self, username):
+        __user = users_repository.get_user(payload={'username': username.data})
+        if __user is not None:
             raise ValidationError('The given username is taken. Use another')
 
-    def validate_email(self, _email):
-        _user = User.query.filter_by(email=_email.data).first()
-        if _user is not None:
+    def validate_email(self, email):
+        __user = users_repository.get_user(payload={'email': email.data})
+        if __user is not None:
             raise ValidationError('The given E-Mail is taken. Use another')
 
 

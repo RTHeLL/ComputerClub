@@ -23,4 +23,4 @@ from blueprints.ucp import bp as ucp_bp
 # Blueprints register
 app.register_blueprint(ucp_bp, url_prefix='/ucp')
 
-from ComputerClub import views, models
+from ComputerClub import routes, models
