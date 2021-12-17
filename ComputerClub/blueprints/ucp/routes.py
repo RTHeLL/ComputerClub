@@ -1,10 +1,16 @@
-from flask import render_template, redirect, url_for
-from flask_login import current_user, logout_user
+import datetime
+
+from flask import render_template, redirect, url_for, request
+from flask_login import current_user, logout_user, login_required
+from werkzeug.urls import url_parse
 
 from database.controller import UsersController
 
 from blueprints.ucp import bp
-from .forms import LoginForm, RegisterForm
+
+from ComputerClub import db
+
+from .forms import LoginForm, RegisterForm, RecoveryForm
 
 
 users_controller = UsersController()
@@ -17,12 +23,10 @@ def login_handler():
         return redirect(url_for('main'))
     form = LoginForm()
     if form.validate_on_submit():
-        __payload = {
-            'form': form,
-            'username': form.username.data,
-            'password': form.password.data
-        }
-        return users_controller.login_user(payload=__payload)
+        next_page = request.args.get('next')
+        if not next_page or url_parse(next_page).netloc != '':
+            next_page = url_for('main')
+        return redirect(next_page)
     return render_template('ucp/login.html', title='Sign In', form=form)
 
 
@@ -47,4 +51,23 @@ def register_handler():
 # Password recovery todo Create recovery password page
 @bp.route('/recovery', methods=['POST', 'GET'])
 def recovery_handler():
-    pass
+    if current_user.is_authenticated:
+        return redirect(url_for('main'))
+    form = RecoveryForm()
+    if form.validate_on_submit():
+        return redirect(url_for('main'))
+    return render_template('ucp/recovery.html', title='Restore account', form=form)
+
+
+@bp.route('/user/<user_id>', methods=['POST', 'GET'])
+@login_required
+def profile_handler(user_id):
+    __payload = users_controller.profile_user(payload={'user_id': user_id})
+    return render_template('ucp/profile.html', payload=__payload)
+
+
+@bp.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_session = datetime.datetime.utcnow()
+        db.session.commit()

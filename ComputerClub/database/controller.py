@@ -1,4 +1,4 @@
-from flask import flash, redirect, url_for, request
+from flask import flash, redirect, url_for, request, abort
 from flask_login import login_user
 from werkzeug.urls import url_parse
 
@@ -27,19 +27,19 @@ class NewsController(Controller):
 
 
 class UsersController(Controller):
-    def login_user(self, payload):
-        __user = users_repository.get_user(payload=payload)
-
-        if __user is None or not __user.check_password(payload['password']):
-            flash(f'Invalid username or password')
-            return redirect(url_for('.login_handler'))
-        login_user(__user, remember=payload['form'].remember.data)
-        next_page = request.args.get('next')
-        if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('main')
-        return redirect(next_page)
-
     def register_user(self, payload):
         if users_repository.create_user(payload=payload):
             flash(f'{payload.username.data} successes created!')
             return redirect(url_for('ucp.login_handler'))
+
+    def profile_user(self, payload):
+        __user = users_repository.get_user(payload=payload)
+        __payload = None
+        if __user is not None:
+            __payload = {
+                'title': __user.username,
+                'user': __user
+            }
+        else:
+            abort(404)
+        return __payload

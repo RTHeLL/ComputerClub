@@ -1,4 +1,7 @@
+from flask import flash
+from flask_login import login_user
 from flask_wtf import FlaskForm
+
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, EmailField
 from wtforms.validators import DataRequired, ValidationError, EqualTo
 
@@ -12,6 +15,13 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember')
     submit = SubmitField('Sign in')
+
+    def validate_username(self, username):
+        __user = users_repository.get_user(payload={'username': username.data})
+        if __user is None or not __user.check_password(self.password.data):
+            flash(f'Invalid username or password')
+            raise ValidationError()
+        login_user(__user, remember=self.remember.data)
 
 
 class RegisterForm(FlaskForm):
@@ -36,4 +46,6 @@ class RegisterForm(FlaskForm):
 
 # todo create RecoveryForm
 class RecoveryForm(FlaskForm):
-    pass
+    username = StringField('Username')
+    email = EmailField('E-mail')
+    submit = SubmitField('Restore account')

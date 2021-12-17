@@ -11,3 +11,8 @@ news_controller = NewsController()
 @app.route('/')
 def main():
     return render_template('index.html', title='test', _news=news_controller.get_news())
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404

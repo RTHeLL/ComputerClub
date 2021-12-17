@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}ComputerClub - Login{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% block content %}
     <h1>Sign In</h1>
@@ -25,8 +25,11 @@
         <div class="mb-3 form-check">
             {{ form.remember(type="checkbox", class="form-check-input") }} {{ form.remember.label(class="form-check-label", for="exampleCheck1") }}
         </div>
-        <div class="col-md-12">
+
+
+        <div class="btn-group" role="group">
             {{ form.submit(type="submit", class="btn btn-primary") }}
+            <a class="btn btn-secondary" href="{{ url_for('ucp.recovery_handler') }}" role="button">Restore account</a>
         </div>
     </form>
 {% endblock %}

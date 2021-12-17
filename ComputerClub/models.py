@@ -1,4 +1,5 @@
 import datetime
+from hashlib import md5
 
 from ComputerClub import db, login
 
@@ -22,6 +23,14 @@ class User(UserMixin, db.Model):
     first_name = db.Column(db.String(64))
     last_name = db.Column(db.String(64))
     balance = db.Column(db.Integer, default=0, nullable=False)
+    favorite_game = db.Column(db.String(64))
+    site_link = db.Column(db.String(64))
+    steam = db.Column(db.String(64))
+    twitter = db.Column(db.String(64))
+    instagram = db.Column(db.String(64))
+    facebook = db.Column(db.String(64))
+    about_me = db.Column(db.String(140))
+    last_session = db.Column(db.DateTime, default=datetime.datetime.utcnow)
     is_superuser = db.Column(db.Boolean, default=0)
 
     def generate_password(self, __password):
@@ -29,6 +38,10 @@ class User(UserMixin, db.Model):
 
     def check_password(self, __password):
         return check_password_hash(self.password, __password)
+
+    def get_avatar(self, __size):
+        __gravatar_hash = md5(self.email.lower().encode('utf-8')).hexdigest()
+        return 'https://www.gravatar.com/avatar/{}?d=mp&s={}'.format(__gravatar_hash, __size)
 
     def __repr__(self):
         return f'<id: {self.id}' \
