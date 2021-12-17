@@ -2,10 +2,14 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}{% endblock %}</title>
+        <title>ComputerClub - {% block title %} {% endblock %}</title>
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <link href="{{ url_for('static', filename='css/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
         <link href="{{ url_for('static', filename='css/header.css') }}" rel="stylesheet">
         <link href="{{ url_for('static', filename='css/footer.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/404.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel='stylesheet'>
+        {% block head %}{% endblock %}
     </head>
     <body>
          <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -128,13 +132,11 @@
                             <div class="dropdown text-end">
                                 <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle"
                                    id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="{{ url_for('static', filename='img/no-avatar.png') }}" alt="mdo" width="38" height="38"
+                                    <img src="{{ current_user.get_avatar(128) }}" alt="mdo" width="38" height="38"
                                          class="rounded-circle">
                                 </a>
                                 <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                                    <li><a class="dropdown-item" href="#">Button 1</a></li>
-                                    <li><a class="dropdown-item" href="#">Button 2</a></li>
-                                    <li><a class="dropdown-item" href="#">Button 3</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('ucp.profile_handler', user_id=current_user.id) }}">Profile</a></li>
                                     <li>
                                         <hr class="dropdown-divider">
                                     </li>

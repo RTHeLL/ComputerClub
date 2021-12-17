@@ -1,0 +1,89 @@
+{# todo create and integration edit profile #}
+{#<div class="card">#}
+{#    <div class="card-body">#}
+{#        <div class="row mb-3">#}
+{#            <div class="col-sm-3">#}
+{#                <h6 class="mb-0">Full Name</h6>#}
+{#            </div>#}
+{#            <div class="col-sm-9 text-secondary">#}
+{#                <input type="text" class="form-control" value="{{ payload['user'].first_name }} {{ payload['user'].last_name }}">#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="row mb-3">#}
+{#            <div class="col-sm-3">#}
+{#                <h6 class="mb-0">Email</h6>#}
+{#            </div>#}
+{#            <div class="col-sm-9 text-secondary">#}
+{#                <input type="text" class="form-control" value="{{ payload['user'].email }}">#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="row mb-3">#}
+{#            <div class="col-sm-3">#}
+{#                <h6 class="mb-0">Favorite game</h6>#}
+{#            </div>#}
+{#            <div class="col-sm-9 text-secondary">#}
+{#                <input type="text" class="form-control" value="{{ payload['user'].favorite_game }}">#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="row">#}
+{#            <div class="col-sm-3"></div>#}
+{#            <div class="col-sm-9 text-secondary">#}
+{#                <input type="button" class="btn btn-primary px-4" value="Save Changes">#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+
+<div class="card mb-3">
+    <div class="card-body">
+        {% if payload['user'].last_session %}
+            <div class="row">
+                <div class="col-sm-9 text-secondary text-opacity-50">
+                    <p>Last online: {{ payload['user'].last_session.strftime("%d %B, %Y, %H:%M") }}</p>
+                </div>
+            </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-sm-3">
+                <h6 class="mb-0">Full Name</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{ payload['user'].first_name }} {{ payload['user'].last_name }}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <h6 class="mb-0">Email</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{ payload['user'].email }}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <h6 class="mb-0">Favorite Game</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{ payload['user'].favorite_game }}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-3">
+                <h6 class="mb-0">About me</h6>
+            </div>
+            <div class="col-sm-9 text-secondary">
+                {{ payload['user'].about_me }}
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-sm-12">
+                <a class="btn btn-info " target="__blank"
+                   href="#">Edit</a>
+            </div>
+        </div>
+    </div>
+</div>

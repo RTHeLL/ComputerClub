@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %} Restore account {% endblock %}
+
+{% block content %}
+    <h1>Restore Account</h1>
+    <form action="" method="POST" novalidate>
+        {{ form.hidden_tag() }}
+        <div class="mb-3 row">
+            {{ form.username.label(for="inputUsername", class="col-sm-1 col-form-label") }}
+            <div class="col-sm-11">
+                {{ form.username(type="text", class="form-control", size=32) }}
+            {% for error in form.username.errors %}
+                <span class="badge bg-danger">{{ error }}</span>
+            {% endfor %}
+            </div>
+        </div>
+        <div class="mb-3 row">
+            {{ form.email.label(for="inputEmail", class="col-sm-1 col-form-label") }}
+            <div class="col-sm-11">
+                {{ form.email(type="password", class="form-control", size=32) }}
+                {% for error in form.email.errors %}
+                    <span class="badge bg-danger">{{ error }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-6">
+            {{ form.submit(type="submit", class="btn btn-primary") }}
+        </div>
+    </form>
+{% endblock %}

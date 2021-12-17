@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <link href="{{ url_for('static', filename='css/profile.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}{{ payload['user'].username }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="main-body">
+            <div class="row">
+                {% include 'ucp/includes/_main_card.html' %}
+                <div class="col-lg-8">
+                    {% include 'ucp/includes/_info_card.html' %}
+                    {% include 'ucp/includes/_posts_card.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
