@@ -43,6 +43,33 @@ class User(UserMixin, db.Model):
         __gravatar_hash = md5(self.email.lower().encode('utf-8')).hexdigest()
         return 'https://www.gravatar.com/avatar/{}?d=mp&s={}'.format(__gravatar_hash, __size)
 
+    def update(self, **kwargs):
+        for key, value in kwargs.items():
+            if hasattr(self, key):
+                setattr(self, key, value)
+
+    @property
+    def get_attrs(self):
+        return self.__dict__
+        # return {
+        #     'id': self.id,
+        #     'username': self.username,
+        #     'password': self.password,
+        #     'email': self.email,
+        #     'first_name': self.first_name,
+        #     'last_name': self.last_name,
+        #     'balance': self.balance,
+        #     'favorite_game': self.favorite_game,
+        #     'site_link': self.site_link,
+        #     'steam': self.steam,
+        #     'twitter': self.twitter,
+        #     'instagram': self.instagram,
+        #     'facebook': self.facebook,
+        #     'about_me': self.about_me,
+        #     'last_session': self.last_session,
+        #     'is_superuser': self.is_superuser,
+        # }
+
     def __repr__(self):
         return f'<id: {self.id}' \
                f'username: {self.username}' \

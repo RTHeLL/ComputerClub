@@ -10,7 +10,7 @@ from blueprints.ucp import bp
 
 from ComputerClub import db
 
-from .forms import LoginForm, RegisterForm, RecoveryForm
+from .forms import LoginForm, RegisterForm, RecoveryForm, EditProfileForm
 
 
 users_controller = UsersController()
@@ -44,7 +44,7 @@ def register_handler():
         return redirect(url_for('main'))
     form = RegisterForm()
     if form.validate_on_submit():
-        return users_controller.register_user(payload=form)
+        return users_controller.register_user(payload={'form': form})
     return render_template('ucp/register.html', title='Sign Up', form=form)
 
 
@@ -64,6 +64,22 @@ def recovery_handler():
 def profile_handler(user_id):
     __payload = users_controller.profile_user(payload={'user_id': user_id})
     return render_template('ucp/profile.html', payload=__payload)
+
+
+@bp.route('/user/<user_id>/edit', methods=['POST', 'GET'])
+@login_required
+def profile_edit_handler(user_id):
+    form = EditProfileForm()
+    __payload = users_controller.profile_user(payload={'user_id': user_id})
+    if form.validate_on_submit():
+        return users_controller.edit_profile_user(payload={
+            'form': form,
+            'user_id': user_id
+        })
+    elif request.method == 'GET':
+        for field in form:
+            field.data = getattr(__payload['user'], field.name, None)
+    return render_template('ucp/profile.html', title='Edit Profile', form=form, payload=__payload, edit=True)
 
 
 @bp.before_request

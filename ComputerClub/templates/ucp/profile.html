@@ -12,7 +12,11 @@
             <div class="row">
                 {% include 'ucp/includes/_main_card.html' %}
                 <div class="col-lg-8">
-                    {% include 'ucp/includes/_info_card.html' %}
+                    {% if edit %}
+                        {% include 'ucp/includes/_edit_includes/_info_card_edit.html' %}
+                    {% else %}
+                        {% include 'ucp/includes/_info_card.html' %}
+                    {% endif %}
                     {% include 'ucp/includes/_posts_card.html' %}
                 </div>
             </div>

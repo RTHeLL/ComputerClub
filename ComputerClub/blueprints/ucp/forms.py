@@ -2,8 +2,8 @@ from flask import flash
 from flask_login import login_user
 from flask_wtf import FlaskForm
 
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, EmailField
-from wtforms.validators import DataRequired, ValidationError, EqualTo
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, TextAreaField
+from wtforms.validators import DataRequired, ValidationError, EqualTo, Length, Email
 
 from database.controller import UsersRepository
 
@@ -28,7 +28,7 @@ class RegisterForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     password_repeat = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
-    email = EmailField('E-mail', validators=[DataRequired()])
+    email = StringField('E-mail', validators=[DataRequired(), Email()])
     first_name = StringField('First name', validators=[DataRequired()])
     last_name = StringField('Last name', validators=[DataRequired()])
     submit = SubmitField('Sign Up')
@@ -47,5 +47,29 @@ class RegisterForm(FlaskForm):
 # todo create RecoveryForm
 class RecoveryForm(FlaskForm):
     username = StringField('Username')
-    email = EmailField('E-mail')
+    email = StringField('E-mail', validators=[Email()])
     submit = SubmitField('Restore account')
+
+
+class EditProfileForm(FlaskForm):
+    # info card
+    first_name = StringField('First name')
+    last_name = StringField('Last name')
+    email = StringField('E-mail', validators=[Email()])
+    favorite_game = StringField('Favorite Game')
+    about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
+
+    # main card
+    site_link = StringField('Website')
+    steam = StringField('Steam')
+    twitter = StringField('Twitter')
+    instagram = StringField('Instagram')
+    facebook = StringField('Facebook')
+
+    submit = SubmitField('Save changes')
+
+    def validate_email(self, email):
+        __user = users_repository.get_user(payload={'email': email.data})
+        if __user is not None and __user.email != email.data:
+            raise ValidationError('The given E-Mail is taken. Use another')
+

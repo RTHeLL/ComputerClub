@@ -16,7 +16,6 @@
             </div>
             <hr class="my-4">
 
-{#                                    todo create and integration user links. start #}
             <ul class="list-group list-group-flush">
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0">
@@ -30,7 +29,7 @@
                         </svg>
                         Website
                     </h6>
-                    <span class="text-secondary">coming soon...</span>
+                    <span class="text-secondary">{{ payload['user'].site_link }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0">
@@ -47,7 +46,7 @@
                         </svg>
                         Steam
                     </h6>
-                    <span class="text-secondary">coming soon...</span>
+                    <span class="text-secondary">{{ payload['user'].steam }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0">
@@ -59,7 +58,7 @@
                         </svg>
                         Twitter
                     </h6>
-                    <span class="text-secondary">coming soon...</span>
+                    <span class="text-secondary">{{ payload['user'].twitter }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0">
@@ -73,7 +72,7 @@
                         </svg>
                         Instagram
                     </h6>
-                    <span class="text-secondary">coming soon...</span>
+                    <span class="text-secondary">{{ payload['user'].instagram }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                     <h6 class="mb-0">
@@ -85,10 +84,10 @@
                         </svg>
                         Facebook
                     </h6>
-                    <span class="text-secondary">coming soon...</span>
+                    <span class="text-secondary">{{ payload['user'].facebook }}</span>
                 </li>
             </ul>
-{#                                    todo create and integration user links. end #}
+
         </div>
     </div>
 </div>

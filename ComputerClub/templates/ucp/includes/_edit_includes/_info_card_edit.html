@@ -1,0 +1,29 @@
+<div class="card">
+
+    <form class="card-body" action="" method="POST" novalidate>
+        {{ form.hidden_tag() }}
+
+        {% for field in form %}
+            {% if field.name != 'submit' and field.name != 'csrf_token' %}
+                <div class="row mb-3">
+                    <div class="col-sm-3">
+                        <h6>{{ field.label(class="mb-0 form-label") }}</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{ field(type="text", class="form-control", size=32) }}
+                        {% for error in field.errors %}
+                            <span class="badge bg-danger">{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9 text-secondary">
+                {{ form.submit(type="submit", class="btn btn-primary px-4") }}
+            </div>
+        </div>
+    </form>
+</div>
