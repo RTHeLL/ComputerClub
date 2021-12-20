@@ -2086,9 +2086,9 @@
   function getBoundingClientRect(element, // eslint-disable-next-line unused-imports/no-unused-vars
   includeScale) {
 
-    var rect = element.getBoundingClientRect();
-    var scaleX = 1;
-    var scaleY = 1; // FIXME:
+    let rect = element.getBoundingClientRect();
+    let scaleX = 1;
+    let scaleY = 1;
     // `offsetWidth` returns an integer while `getBoundingClientRect`
     // returns a float. This results in `scaleX` or `scaleY` being
     // non-1 when it should be for elements that aren't a full pixel in

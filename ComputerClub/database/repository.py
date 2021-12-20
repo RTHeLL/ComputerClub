@@ -1,3 +1,5 @@
+from sqlalchemy.exc import SQLAlchemyError
+
 from ComputerClub import db
 
 from ComputerClub.models import News, User
@@ -16,22 +18,6 @@ class NewsRepository(Repository):
 
 
 class UsersRepository(Repository):
-    def get_user(self, payload):
-        __user = User.query\
-                    .filter(self.__payload_definition(_payload=payload))\
-                    .first()
-
-        return __user
-
-    @db_commit
-    def create_user(self, payload):
-        __user = User(username=payload.username.data,
-                      email=payload.email.data,
-                      first_name=payload.first_name.data,
-                      last_name=payload.last_name.data)
-        __user.generate_password(payload.password.data)
-        db.session.add(__user)
-
     @staticmethod
     def __payload_definition(_payload):
         __query = 0
@@ -46,3 +32,28 @@ class UsersRepository(Repository):
             __query = User.email == _payload['email']
 
         return __query
+
+    def get_user(self, payload):
+        __user = User.query\
+                    .filter(self.__payload_definition(_payload=payload))\
+                    .first()
+
+        return __user
+
+    @db_commit
+    def create_user(self, payload):
+        __user = User(username=payload['form'].username.data,
+                      email=payload['form'].email.data,
+                      first_name=payload['form'].first_name.data,
+                      last_name=payload['form'].last_name.data)
+        __user.generate_password(payload['form'].password.data)
+        db.session.add(__user)
+
+    @db_commit
+    def edit_user(self, *args, **kwargs):
+        try:
+            __user = self.get_user({'user_id': args})
+            __user.update(**kwargs)
+            return True
+        except SQLAlchemyError as e:
+            print(e)  # todo add logger
