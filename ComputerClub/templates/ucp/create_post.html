@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <h1>Create new post</h1>
+    <form action="" method="POST" novalidate>
+        {{ form.hidden_tag() }}
+
+        {% for field in form %}
+            {% if field.name != 'submit' and field.name != 'csrf_token' %}
+                <div class="mb-3">
+                    <div class="col-sm-3">
+                        <h6>{{ field.label(class="mb-0 form-label") }}</h6>
+                    </div>
+                    {{ field(type="text", class="form-control", size=32) }}
+                    {% for error in field.errors %}
+                        <span class="badge bg-danger">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <div class="btn-group" role="group">
+            {{ form.submit(type="submit", class="btn btn-primary") }}
+        </div>
+    </form>
+{% endblock %}

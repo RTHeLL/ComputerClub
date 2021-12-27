@@ -1,9 +1,10 @@
 from flask import flash, redirect, url_for, abort
 
-from database.repository import NewsRepository, UsersRepository
+from database.repository import NewsRepository, UsersRepository, PostsRepository
 
 news_repository = NewsRepository()
 users_repository = UsersRepository()
+posts_repository = PostsRepository()
 
 
 class Controller:
@@ -32,6 +33,8 @@ class UsersController(Controller):
 
     def profile_user(self, payload):
         __user = users_repository.get_user(payload=payload)
+        __posts = posts_repository.get_all_posts_of_user(payload['user_id'])
+        print(__posts)
         __payload = None
         if __user is not None:
             __payload = {
@@ -41,7 +44,8 @@ class UsersController(Controller):
                                      'about_me': 'About me',
                                      'email': 'Email',
                                      'last_name': 'Last name',
-                                     'favorite_game': 'Favorite Game'}
+                                     'favorite_game': 'Favorite Game'},
+                'posts': __posts
             }
         else:
             abort(404)
@@ -70,3 +74,9 @@ class UsersController(Controller):
             flash('Your changes have been saved')
             return redirect(url_for('ucp.profile_handler', user_id=__user_id))
 
+
+class PostsController(Controller):
+    def create_post(self, payload):
+        if posts_repository.create_new_post(payload=payload):
+            flash(f'{payload["form"].title.data} successes created!')
+            return redirect(url_for('ucp.profile_handler', user_id=payload['user_id']))

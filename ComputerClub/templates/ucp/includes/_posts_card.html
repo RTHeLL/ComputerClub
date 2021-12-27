@@ -1,10 +1,37 @@
-{# todo create and integration posts system #}
+{# todo create like system #}
 <div class="row">
     <div class="col-sm-12">
         <div class="card">
             <div class="card-body">
-                <h5 class="d-flex align-items-center mb-3">Posts</h5>
-                Coming soon..
+                <div class="row">
+                    <h5 class="col d-flex justify-content-start align-items-center mb-3">Posts</h5>
+                    <a class="col-auto d-flex justify-content-end align-items-center mb-3 btn btn-info"
+                       href="{{ url_for('ucp.profile_post_create', user_id=payload['user'].id) }}">+</a>
+                </div>
+                {% if payload['posts'] %}
+                    {% for post in payload['posts'] %}
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ post.title }}</h5>
+                                <p class="card-text content-text">{{ post.content }}</p>
+{#                                <div class="btn-group me-2" role="group" aria-label="Second group">#}
+{#                                    <button type="button" class="btn btn-secondary">#}
+{#                                        <svg class="bi d-inline-block align-text-top mx-auto mb-1" width="16" height="16">#}
+{#                                            <use xlink:href="#like"></use>#}
+{#                                        </svg>#}
+{#                                        {{ post.likes }}#}
+{#                                    </button>#}
+{#                                    <button type="button" class="btn btn-secondary">#}
+{#                                        <svg class="bi d-inline-block align-text-top mx-auto mb-1" width="16" height="16">#}
+{#                                            <use xlink:href="#dislike"></use>#}
+{#                                        </svg>#}
+{#                                        {{ post.dislikes }}#}
+{#                                    </button>#}
+{#                                </div>#}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>

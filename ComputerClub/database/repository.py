@@ -1,8 +1,9 @@
+from sqlalchemy import desc
 from sqlalchemy.exc import SQLAlchemyError
 
 from ComputerClub import db
 
-from ComputerClub.models import News, User
+from ComputerClub.models import News, User, Posts
 
 from decorators import db_commit
 
@@ -57,3 +58,20 @@ class UsersRepository(Repository):
             return True
         except SQLAlchemyError as e:
             print(e)  # todo add logger
+
+
+class PostsRepository(Repository):
+    def get_all_posts_of_user(self, user_id):
+        __posts = Posts.query\
+                    .filter_by(author_id=user_id) \
+                    .order_by(desc(Posts.create_date))\
+                    .all()
+        return __posts
+
+    @db_commit
+    def create_new_post(self, payload):
+        __post = Posts(title=payload['form'].title.data,
+                       content=payload['form'].content.data,
+                       author_id=payload['user_id'])
+        db.session.add(__post)
+
