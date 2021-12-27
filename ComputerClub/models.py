@@ -51,29 +51,27 @@ class User(UserMixin, db.Model):
     @property
     def get_attrs(self):
         return self.__dict__
-        # return {
-        #     'id': self.id,
-        #     'username': self.username,
-        #     'password': self.password,
-        #     'email': self.email,
-        #     'first_name': self.first_name,
-        #     'last_name': self.last_name,
-        #     'balance': self.balance,
-        #     'favorite_game': self.favorite_game,
-        #     'site_link': self.site_link,
-        #     'steam': self.steam,
-        #     'twitter': self.twitter,
-        #     'instagram': self.instagram,
-        #     'facebook': self.facebook,
-        #     'about_me': self.about_me,
-        #     'last_session': self.last_session,
-        #     'is_superuser': self.is_superuser,
-        # }
 
     def __repr__(self):
         return f'<id: {self.id}' \
                f'username: {self.username}' \
                f'email: {self.email}>'
+
+
+class Posts(db.Model):
+    __tablename__ = 'posts'
+
+    id = db.Column(db.Integer, primary_key=True, index=True)
+    title = db.Column(db.String(64), index=True)
+    content = db.Column(db.String(512))
+    likes = db.Column(db.Integer, default=0)
+    dislikes = db.Column(db.Integer, default=0)
+    create_date = db.Column(db.DateTime, default=datetime.datetime.now())
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    author = db.relationship('User')
+
+    def __repr__(self):
+        return f'<Post {self.id}>'
 
 
 class Computer(db.Model):

@@ -1,5 +1,5 @@
 from ComputerClub import app, db
-from ComputerClub.models import User, Computer, Room, News
+from ComputerClub.models import User, Computer, Room, News, Posts
 
 from database.repository import NewsRepository, UsersRepository
 from database.controller import NewsController, UsersController
@@ -12,6 +12,7 @@ def make_shell_context():
             'Computer': Computer,
             'Room': Room,
             'News': News,
+            'Posts': Posts,
             'NewsRepository': NewsRepository,
             'UsersRepository': UsersRepository,
             'NewsController': NewsController,

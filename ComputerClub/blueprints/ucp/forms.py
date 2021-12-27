@@ -73,3 +73,9 @@ class EditProfileForm(FlaskForm):
         if __user is not None and __user.email != email.data:
             raise ValidationError('The given E-Mail is taken. Use another')
 
+
+class NewPostCreateForm(FlaskForm):
+    title = StringField('Title')
+    content = StringField('Text')
+
+    submit = SubmitField('Create')

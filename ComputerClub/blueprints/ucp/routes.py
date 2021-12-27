@@ -4,16 +4,16 @@ from flask import render_template, redirect, url_for, request
 from flask_login import current_user, logout_user, login_required
 from werkzeug.urls import url_parse
 
-from database.controller import UsersController
+from database.controller import UsersController, PostsController
 
 from blueprints.ucp import bp
 
 from ComputerClub import db
 
-from .forms import LoginForm, RegisterForm, RecoveryForm, EditProfileForm
-
+from .forms import LoginForm, RegisterForm, RecoveryForm, EditProfileForm, NewPostCreateForm
 
 users_controller = UsersController()
+posts_controller = PostsController()
 
 
 # Login page
@@ -80,6 +80,22 @@ def profile_edit_handler(user_id):
         for field in form:
             field.data = getattr(__payload['user'], field.name, None)
     return render_template('ucp/profile.html', title='Edit Profile', form=form, payload=__payload, edit=True)
+
+
+@bp.route('/user/<user_id>/add-post', methods=['POST', 'GET'])
+@login_required
+def profile_post_create(user_id):
+    form = NewPostCreateForm()
+    # __payload = posts_controller.create_post(payload={
+    #     'form': form,
+    #     'user_id': user_id
+    # })
+    if form.validate_on_submit():
+        return posts_controller.create_post(payload={
+            'form': form,
+            'user_id': user_id
+        })
+    return render_template('ucp/create_post.html', title='Create new post', form=form)
 
 
 @bp.before_request
